@@ -1,0 +1,172 @@
+<app-header></app-header>
+<div class="min-h-screen flex flex-col justify-center items-center pt-24">
+  <section class="flex min-h-[calc(100vh-450px)] justify-center items-center">
+    <div class="py-10 flex flex-col justify-center items-center">
+      <div class="max-w-4xl text-center mx-auto px-4">
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
+          Step Into the World of Blogging with One Blog
+        </h1>
+        <p class="text-sm md:text-xl text-gray-600 mb-8">
+          Every great journey begins with a single step, and starting a blog is
+          your chance to make your mark. At One Blog, we provide the perfect
+          platform to share your passions, connect with like-minded readers, and
+          create a lasting impact.
+        </p>
+        <button
+          routerLink="/register"
+          class="bg-primary text-white px-6 py-3 rounded-full"
+        >
+          Get Started
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="w-full flex items-center justify-center py-12" *ngIf="loading" >
+    <h1 class="text-3xl font-bold text-primary uppercase">Loading</h1>
+    <img src="https://assets-v2.lottiefiles.com/a/788ad69a-1171-11ee-af6c-a7398cbb921e/XWZnZRKt74.gif" width="100px" alt="loader">
+  </section>
+
+  <section *ngIf="!loading" class="max-w-6xl mx-auto px-4 md:px-8 py-12">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl font-bold mb-2">Popular Posts</h2>
+      <p class="text-gray-600">
+        Ideas, trends, and inspiration for a brighter future
+      </p>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-6">
+      <div class="w-full md:w-[65%]">
+        <div class="bg-white rounded-lg overflow-hidden">
+          <img
+            [routerLink]="'/blogs/' + blogsPart1[0]._id"
+            [src]="blogsPart1[0]?.coverImage"
+            alt="Featured Blog"
+            class="w-full h-64 md:h-96 object-cover object-center rounded-lg cursor-pointer"
+          />
+          <div class="p-4">
+            <h3
+              [routerLink]="'/blogs/' + blogsPart1[0]._id"
+              class="font-bold hover:text-primary text-xl mb-2 cursor-pointer"
+            >
+              {{ blogsPart1[0]?.title }}
+            </h3>
+            <div
+              class="flex justify-between items-center text-sm text-gray-600"
+            >
+              <div class="flex items-center gap-2">
+                <img
+                  [src]="
+                    blogsPart1[0]?.author?.profilePic
+                      ? blogsPart1[0].author.profilePic
+                      : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'
+                  "
+                  alt="profilePic"
+                  class="w-6 h-6 rounded-full"
+                />
+                <span>{{ blogsPart1[0]?.author?.username }}</span>
+              </div>
+              <span class="text-gray-500">{{
+                blogsPart1[0]?.createdAt | date : "mediumDate"
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full md:w-[35%] flex flex-col gap-4">
+        @for (blog of blogsPart1.slice(1); track $index) {
+        <div class="flex flex-col overflow-hidden">
+          <div class="w-full flex-shrink-0">
+            <img
+              [src]="blog.coverImage"
+              alt="Blog Image"
+              [routerLink]="'/blogs/' + blog._id"
+              class="w-full h-48 object-cover object-center rounded-lg cursor-pointer"
+            />
+          </div>
+
+          <div class="flex flex-col justify-between space-y-1 p-3 flex-grow">
+            <h3
+              [routerLink]="'/blogs/' + blog._id"
+              class="cursor-pointer hover:text-primary text-sm font-semibold leading-snug line-clamp-2"
+            >
+              {{ blog.title }}
+            </h3>
+            <div class="flex justify-between">
+              <div class="flex items-center gap-2 text-xs text-gray-600">
+                <img
+                  [src]="
+                    blog.author?.profilePic
+                      ? blog.author.profilePic
+                      : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'
+                  "
+                  alt="profilePic"
+                  class="w-5 h-5 rounded-full"
+                />
+                <span>{{ blog.author?.username }}</span>
+              </div>
+              <span class="text-gray-500 text-xs">
+                {{ blog.createdAt | date : "mediumDate" }}
+              </span>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="!loading" class="max-w-7xl mx-auto px-4 md:px-8 py-12">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl font-bold mb-2">Trending Posts</h2>
+      <p class="text-gray-600">
+        Discover how innovation and creativity drive meaningful change
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      @for (blog of blogsPart2; track $index) {
+      <div class="overflow-hidden">
+        <img
+          [src]="blog.coverImage"
+          alt="Blog Image"
+          [routerLink]="'/blogs/' + blog._id"
+          class="w-full cursor-pointer rounded-lg h-60 object-cover object-center"
+        />
+        <div class="p-4">
+          <h3
+            [routerLink]="'/blogs/' + blog._id"
+            class="font-bold hover:text-primary cursor-pointer text-lg mb-2"
+          >
+            {{ blog.title }}
+          </h3>
+          <div class="flex items-center mt-4">
+            <img
+              [src]="
+                blog.author.profilePic
+                  ? blog.author.profilePic
+                  : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'
+              "
+              alt="{{ blog.author.username }} profile"
+              class="w-8 h-8 rounded-full mr-2"
+            />
+            <span class="text-sm text-gray-600">{{
+              blog.author.username
+            }}</span>
+            <span class="text-xs text-gray-500 ml-auto">{{
+              blog.createdAt | date : "mediumDate"
+            }}</span>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    <div class="flex justify-center w-full items-center my-10">
+      <button class="text-secondary hover:text-primary" routerLink="/all-blogs">
+        View More <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </section>
+</div>
+<app-footer></app-footer>

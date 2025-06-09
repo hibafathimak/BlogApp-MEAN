@@ -1,0 +1,78 @@
+<div
+  class="w-full bg-white fixed z-10 px-5 py-4 md:py-2 flex flex-row items-center justify-between"
+>
+  <i
+    (click)="handleMenu()"
+    class="text-xl fa-solid fa-bars md:hidden cursor-pointer"
+  ></i>
+
+  <h2 class="font-semibold text-secondary">
+    <span class="text-primary">One</span>Blog
+  </h2>
+
+  <div
+    [ngClass]="{ flex: isMenuOpen, hidden: !isMenuOpen }"
+    class="absolute ps-3 md:static top-16 left-0 w-[60%] md:w-1/2 bg-white shadow-md md:shadow-none font-semibold text-lg md:flex md:flex-row flex-col justify-evenly md:items-center rounded-lg hidden z-20"
+  >
+    <a
+      routerLink="/"
+      routerLinkActive="text-primary"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="p-4 hover:text-primary cursor-pointer"
+      >Home</a
+    >
+    <a
+      routerLink="/all-blogs"
+      routerLinkActive="text-primary"
+      class="p-4 hover:text-primary cursor-pointer font-semibold text-lg"
+      >Blogs</a
+    >
+    <a
+      routerLink="/about"
+      routerLinkActive="text-primary"
+      class="p-4 hover:text-primary cursor-pointer font-semibold text-lg"
+      >About</a
+    >
+    <a
+      routerLink="/contact"
+      routerLinkActive="text-primary"
+      class="p-4 hover:text-primary cursor-pointer font-semibold text-lg"
+      >Contact</a
+    >
+  </div>
+
+  <div class="relative">
+    <button
+      *ngIf="!isloggedin"
+      routerLink="/login"
+      class="bg-primary rounded-full p-2 px-4 text-white"
+    >
+      Login
+    </button>
+
+    <div *ngIf="isloggedin" class="group relative inline-block text-left">
+      <div
+        class="flex items-center gap-2 bg-primary text-white rounded-full px-4 py-2"
+      >
+        <i class="fa-solid fa-user"></i>
+        <span class="md:block hidden">{{ loggedUsername }}</span>
+        <i class="fa-solid fa-caret-down"></i>
+      </div>
+      <div
+        class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded shadow-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity"
+      >
+        <a
+          routerLink="/profile"
+          class="block px-4 py-2 hover:bg-gray-100 text-sm"
+          >Profile</a
+        >
+        <button
+          (click)="logout()"
+          class="w-full text-left px-4 py-2 hover:bg-gray-100 text-sm"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

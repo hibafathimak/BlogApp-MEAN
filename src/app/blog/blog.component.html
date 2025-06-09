@@ -1,0 +1,146 @@
+<app-header></app-header>
+
+<div class="w-full flex items-center justify-center py-28" *ngIf="loading" >
+  <h1 class="text-3xl font-bold text-primary uppercase">Loading</h1>
+  <img src="https://assets-v2.lottiefiles.com/a/788ad69a-1171-11ee-af6c-a7398cbb921e/XWZnZRKt74.gif" width="100px" alt="loader">
+</div>
+
+<div *ngIf="!loading" class="max-w-4xl mx-auto px-4 py-28">
+  <div class="border-teal-200 rounded-lg p-6 mb-8 text-center">
+    <div class="flex justify-center mb-2">
+      <div class="w-16 h-16 rounded-full overflow-hidden">
+        <img
+          [src]="
+            blog.author?.profilePic
+              ? blog.author?.profilePic
+              : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'
+          "
+          alt="Author"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+    <p class="text-gray-600 mb-1">{{ blog.author?.username }}</p>
+
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ blog.title }}</h1>
+    <p class="text-gray-500 text-sm mb-4">{{ blog.category }}</p>
+
+    <div class="flex flex-wrap gap-2 mb-4 justify-center">
+      <span
+        *ngFor="let tag of blog.tags"
+        class="bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full"
+      >
+        #{{ tag }}
+      </span>
+    </div>
+
+    <div class="flex justify-center items-center text-gray-500 text-sm gap-2">
+      <i class="fa-solid fa-calendar"></i>
+      <span>{{ blog.createdAt | date : "longDate" }}</span>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <img
+      [src]="blog.coverImage"
+      alt="Blog Image"
+      class="w-full h-full object-cover rounded-lg"
+    />
+  </div>
+
+  <div class="space-y-8">
+    <div class="mb-8">
+      <p class="text-secondary border-l-2 px-5 text-justify md:ms-5">
+        {{ blog.content }}
+      </p>
+    </div>
+  </div>
+
+  <div class=" mt-10 rounded-lg shadow-sm p-6 border border-gray-100">
+    <div
+      class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 text-gray-600"
+    >
+      <div class="flex flex-wrap gap-4">
+        <button
+          class="flex items-center space-x-2 hover:text-primary transition"
+          [ngClass]="isLikedByUser() ? 'text-primary' : 'text-gray-600'"
+          (click)="toggleLike()"
+        >
+          <i class="fa-regular fa-thumbs-up"></i>
+          <span>{{ isLikedByUser() ? "Liked" : "Like" }}</span>
+          <span class="text-sm text-gray-500"
+            >({{ blog.likes?.length || 0 }})</span
+          >
+        </button>
+
+        <button
+          class="flex items-center space-x-2 hover:text-primary transition"
+        >
+          <i class="fa-regular fa-comment"></i>
+          <span>Comments</span>
+          <span class="text-sm text-gray-500"
+            >({{ blog.comments?.length || 0 }})</span
+          >
+        </button>
+
+        <button
+  [disabled]="isReportedByUser()"
+  class="flex items-center space-x-2 hover:text-red-600 transition"
+  [ngClass]="isReportedByUser() ? 'text-red-700' : 'text-gray-600'"
+  (click)="reportPost()"
+>
+  <i class="fa-regular fa-flag"></i>
+  <span>{{ isReportedByUser() ? "Reported" : "Report" }}</span>
+</button>
+
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <label for="comment" class="block text-sm font-medium text-gray-700 mb-1"
+        >Leave a Comment</label
+      >
+      <textarea
+        id="comment"
+        rows="3"
+        [(ngModel)]="commentText"
+        class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-primary focus:border-primary"
+        placeholder="Write your thoughts here..."
+      ></textarea>
+
+      <div class="mt-2 flex justify-end">
+        <button
+          (click)="postComment()"
+          class="bg-primary hover:bg-teal-700 text-white text-sm font-medium py-2 px-4 rounded-md transition"
+        >
+          Post Comment
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-8 space-y-4" *ngFor="let c of blog.comments">
+      <div class="border-t pt-4 flex justify-between items-center">
+        <div>
+          <p class="text-sm text-gray-800">
+            <span class="font-semibold">{{ c.user.username }}:</span>
+            {{ c.comment }}
+          </p>
+          <p class="text-xs text-gray-500 mt-1">
+            Posted on {{ c.createdAt | date : "mediumDate" }}
+          </p>
+        </div>
+        <div>
+          <button
+            *ngIf="c.user._id === currentUserId"
+            (click)="deleteComment(c._id)"
+            class="text-xs text-red-500"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

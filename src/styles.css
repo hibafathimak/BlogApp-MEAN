@@ -1,1 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer base {
+
+h1, h2, h3, h4, h5, h6 {
+    @apply font-montserrat;
+  }
+  
+  p,button {
+    @apply font-poppins;
+  }
+  
+
+h1 {
+    @apply text-4xl font-semibold; 
+  }
+  
+  h2 {
+    @apply text-3xl font-medium; 
+  }
+  
+  h3 {
+    @apply text-2xl font-medium; 
+  }
+  
+  h4 {
+    @apply text-xl font-medium; 
+  }
+  
+  h5 {
+    @apply text-lg font-medium; 
+  }
+  
+  h6 {
+    @apply text-base font-medium; 
+  }
+  
+  p {
+    @apply text-base leading-relaxed;
+  }
+  
+  small {
+    @apply text-sm text-gray-500; 
+  }
+  
+  blockquote {
+    @apply text-lg italic text-gray-700; 
+  }
+  
+  }
+  

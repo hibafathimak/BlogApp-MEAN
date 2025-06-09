@@ -1,0 +1,45 @@
+<main class="bg-gray-50 min-h-screen p-4 sm:p-6">
+  <div class="max-w-7xl mx-auto">
+    <app-nav />
+    <h1 class="text-3xl font-semibold mb-6">All Messages</h1>
+
+    <div class="bg-white shadow-lg rounded-lg p-4 overflow-x-auto">
+      <table class="min-w-full text-gray-700 text-sm md:text-base">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2 text-left whitespace-nowrap">#</th>
+            <th class="px-4 py-2 text-left whitespace-nowrap">Name</th>
+            <th class="px-4 py-2 text-left whitespace-nowrap">Email</th>
+            <th class="px-4 py-2 text-left whitespace-nowrap">Phone</th>
+            <th class="px-4 py-2 text-left whitespace-nowrap">Message</th>
+            <th class="px-4 py-2 text-left whitespace-nowrap">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let message of AllMessages; let i = index"
+            class="border-t"
+          >
+            <td class="px-4 py-2 whitespace-nowrap">{{ i + 1 }}</td>
+            <td class="px-4 py-2 whitespace-nowrap">
+              {{ message.firstname }} {{ message.lastname }}
+            </td>
+            <td class="px-4 py-2 whitespace-nowrap">{{ message.email }}</td>
+            <td class="px-4 py-2 whitespace-nowrap">{{ message.phone }}</td>
+            <td class="px-4 py-2 ">
+              {{ message.description }}
+            </td>
+            <td class="px-4 py-2 whitespace-nowrap">
+              <button
+                (click)="deleteMessage(message._id)"
+                class="text-red-500 hover:text-red-700 flex items-center gap-1 px-4 py-2 rounded hover:bg-red-50 transition"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

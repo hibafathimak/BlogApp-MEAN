@@ -1,0 +1,103 @@
+<div class="flex min-h-screen items-center justify-center bg-gray-100 px-4">
+  <div class="flex my-5 w-full max-w-2xl flex-col overflow-hidden rounded-lg md:h-[400px] shadow-lg md:flex-row">
+    
+
+    <div class="relative flex w-full items-center justify-center bg-primary p-8 text-white md:w-2/4">
+      <div class="z-10 text-center md:text-left">
+        
+        <div class="mb-8 flex items-center justify-center md:justify-start">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded border border-white p-2">
+            <i routerLink="/" class="fas fa-arrow-right cursor-pointer"></i>
+          </div>
+          <span class="ml-2 text-lg font-semibold">OneBlog</span>
+        </div>
+
+        <div class="mb-12">
+          <h2 class="mb-3 text-3xl font-bold">Join Our Community!</h2>
+          <p class="text-sm text-teal-100">
+            Create an account and start sharing your thoughts, ideas, and stories with the world.
+          </p>
+        </div>
+
+        <button 
+          routerLink="/login"
+          class="mt-4 w-full rounded-full border border-white px-6 py-2 font-medium text-white transition hover:bg-teal-600"
+        >
+        LOGIN
+        </button>
+
+      </div>
+
+
+      <div class="absolute -bottom-16 -left-16 h-48 w-48 rounded-full bg-teal-400 opacity-20"></div>
+      <div class="absolute top-44 h-8 w-8 rotate-90 bg-teal-400 opacity-20"></div>
+      <div class="absolute right-4 top-20 h-16 w-16 rotate-45 bg-teal-400 opacity-20"></div>
+    </div>
+
+
+    <div class="w-full flex flex-col justify-center bg-white p-8 md:w-2/4">
+      <div class="mx-auto max-w-md">
+        <h2 class="mb-8 text-center text-2xl font-bold text-primary">Create Account</h2>
+
+        <form [formGroup]="registerForm" (ngSubmit)="register()" class="space-y-4">
+         
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="fas fa-user h-5 w-5 text-gray-400"></i>
+            </div>
+            <input 
+            formControlName="username"
+            name="username"
+              type="text" 
+              placeholder="Name" 
+              class="w-full rounded-md bg-gray-100 py-3 pl-10 pr-4 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            >
+            @if(registerForm.get("username")?.errors && registerForm.get("username")?.touched){<div class="text-secondary fw-bolder">Invalid Username</div>}
+
+          </div>
+
+         
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="fas fa-envelope h-5 w-5 text-gray-400"></i>
+            </div>
+            <input 
+            formControlName="email"
+            name="email"
+              type="email" 
+              placeholder="Email" 
+              class="w-full rounded-md bg-gray-100 py-3 pl-10 pr-4 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            >
+            @if(registerForm.get("email")?.errors && registerForm.get("email")?.touched){<div class="text-secondary fw-bolder">Invalid Email</div>}
+
+          </div>
+
+          
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="fas fa-lock h-5 w-5 text-gray-400"></i>
+            </div>
+            <input 
+            formControlName="password"
+            name="password"
+              type="password" 
+              placeholder="Password" 
+              class="w-full rounded-md bg-gray-100 py-3 pl-10 pr-4 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            >
+            @if(registerForm.get("password")?.errors && registerForm.get("password")?.touched){<div class="text-secondary fw-bolder">Invalid Password</div>}
+          </div>
+
+          
+          <button 
+            type="submit"
+            class="mt-4 w-full rounded-full bg-primary py-3 font-medium text-white transition hover:bg-teal-600"
+          >
+          Get Started
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
